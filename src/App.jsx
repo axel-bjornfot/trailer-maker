@@ -1,33 +1,63 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { ReactQueryDevtools } from "react-query/devtools";
-import Container from "react-bootstrap/esm/Container";
+import React, { useEffect } from "react";
+import { Route, Switch, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import Navigation from "./pages/partials/navigation";
-import HastlastbilPage from "./pages/HastlastbilPage";
-import HasttransportPage from "./pages/HasttransportPage";
+import Navigation from "./pages/partials/Navigation";
+import PageNotFound from "./pages/PageNotFound";
+
+import VanPage from "./pages/VanPage";
 import JaktvagnPage from "./pages/JaktvagnPage";
+import CampervanPage from "./pages/CampervanPage";
+import LoginPage from "./pages/LoginPage";
+import { onAuthStateChanged } from "firebase/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { saveUser } from "./features/auth/authSlice";
+import { auth } from "../src/firebase";
 
 function App() {
+	const user = useSelector((state) => state.auth.value);
+	console.log("user from state", user);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				dispatch(saveUser(user.refreshToken));
+			} else {
+				dispatch(saveUser(undefined));
+			}
+		});
+	}, [auth, dispatch]);
+
 	return (
 		<>
 			<Navigation />
-			<Container className="py-4 align-items-center">
-				<Routes>
-					<Route path="/" element={<HomePage />} />
-					<Route path="/hastlastbil" element={<HastlastbilPage />} />
-					<Route
-						path="/hasttransport"
-						element={<HasttransportPage />}
-					/>
-					<Route path="/jaktvagn" element={<JaktvagnPage />} />
-				</Routes>
 
-				<ReactQueryDevtools
-					initialIsOpen={false}
-					position="bottom-right"
-				/>
-			</Container>
+			<div id="App">
+				<Switch>
+					<Route exact path="/">
+						<HomePage />
+					</Route>
+
+					<Route path="/van">
+						<VanPage />
+					</Route>
+
+					<Route path="/campervan">
+						<CampervanPage />
+					</Route>
+
+					<Route path="/jaktvagn">
+						<JaktvagnPage />
+					</Route>
+
+					<Route path="/login">
+						<LoginPage />
+					</Route>
+
+					<Route>
+						<PageNotFound />
+					</Route>
+				</Switch>
+			</div>
 		</>
 	);
 }

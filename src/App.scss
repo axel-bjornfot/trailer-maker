@@ -1,0 +1,53 @@
+@import "bootstrap/scss/bootstrap";
+@import "./Var.scss";
+@import "./Custom.scss";
+
+#Homepage {
+	background-image: $bg-img1;
+	height: 100vh;
+	min-width: 100vw;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.fetching-spinner {
+	position: absolute;
+	right: 80px;
+	top: 40px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-bottom: 0.5em;
+}
+
+.btn-flat {
+	background-color: transparent;
+	color: $black;
+}
+
+.btn-flat:hover {
+	background-color: $lightgray;
+	color: $black;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+	box-shadow: none !important;
+	outline: none !important;
+	background-color: $lightgray;
+}
+
+.btn-xxl {
+	padding: 1rem 1.5rem;
+	font-size: 1.5rem;
+}

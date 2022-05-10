@@ -1,39 +1,42 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import { NavLink } from "react-router-dom";
-
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
 
 const Navigation = () => {
 	return (
-		<>
-			<Navbar bg="dark" variant="dark">
-				<Container>
-					<div>
-						<Navbar.Brand to="/">
-							Trailer Maker Sweden 🚛
-						</Navbar.Brand>
-					</div>
-					<div>
-						<Nav className="me-auto">
-							<NavLink to="/" className="nav-link">
-								Home
-							</NavLink>
-							<NavLink to="/hasttransport" className="nav-link">
-								Hästtransport
-							</NavLink>
-							<NavLink to="/hastLastbil" className="nav-link">
-								HästLastbil B-Kort
-							</NavLink>
-							<NavLink to="/jakvagn" className="nav-link">
-								Jaktvagn
-							</NavLink>
-						</Nav>
-					</div>
-				</Container>
-			</Navbar>
-		</>
+		<Navbar bg="light" fixed="top" variant="light" expand="md">
+			<Container>
+				<Link to="/" className="navbar-brand">
+					<span role="img" aria-label="A red truck">
+						🚚
+					</span>{" "}
+					Truck makers
+				</Link>
+
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Collapse id="basic-navbar-nav">
+					<Nav className="ms-auto">
+						<Button variant="flat" as={Link} to="/van">
+							{" "}
+							Van{" "}
+						</Button>
+
+						<Button variant="flat" as={Link} to="campervan">
+							{" "}
+							Campervan{" "}
+						</Button>
+
+						<Button variant="flat" as={Link} to="/jaktvagn">
+							{" "}
+							Jaktvagn{" "}
+						</Button>
+					</Nav>
+				</Navbar.Collapse>
+			</Container>
+		</Navbar>
 	);
 };
 

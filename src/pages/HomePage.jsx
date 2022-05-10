@@ -3,8 +3,8 @@ import Container from "react-bootstrap/Container";
 
 const HomePage = () => {
 	return (
-		<Container>
-			<h1>HomePage</h1>
+		<Container id="Homepage">
+			<h1>Welcome!</h1>
 		</Container>
 	);
 };
