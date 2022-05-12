@@ -3,7 +3,7 @@ import { Route, Switch, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Navigation from "./pages/partials/Navigation";
 import PageNotFound from "./pages/PageNotFound";
-
+import { ReactQueryDevtools } from "react-query/devtools";
 import VanPage from "./pages/VanPage";
 import JaktvagnPage from "./pages/JaktvagnPage";
 import CampervanPage from "./pages/CampervanPage";
@@ -15,7 +15,6 @@ import { auth } from "../src/firebase";
 
 function App() {
 	const user = useSelector((state) => state.auth.value);
-	console.log("user from state", user);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
@@ -31,7 +30,7 @@ function App() {
 		<>
 			<Navigation />
 
-			<div id="App">
+			<div id="App" className="elementMargin">
 				<Switch>
 					<Route exact path="/">
 						<HomePage />
@@ -58,6 +57,7 @@ function App() {
 					</Route>
 				</Switch>
 			</div>
+			<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
 		</>
 	);
 }
