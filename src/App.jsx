@@ -3,6 +3,7 @@ import { Route, Switch, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Navigation from "./pages/partials/Navigation";
 import PageNotFound from "./pages/PageNotFound";
+import ConfirmationPage from "./pages/ConfirmationPage";
 import { ReactQueryDevtools } from "react-query/devtools";
 import VanPage from "./pages/VanPage";
 import JaktvagnPage from "./pages/JaktvagnPage";
@@ -46,6 +47,10 @@ function App() {
 
 					<Route path="/jaktvagn">
 						<JaktvagnPage />
+					</Route>
+
+					<Route path="/confirm">
+						<ConfirmationPage />
 					</Route>
 
 					<Route path="/login">

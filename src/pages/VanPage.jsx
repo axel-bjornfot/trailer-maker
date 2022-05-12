@@ -1,8 +1,6 @@
-import { end } from "@popperjs/core";
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
-import Offcanvas from "react-bootstrap/Offcanvas";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -12,11 +10,13 @@ import ProductImg from "../components/ProductImg";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { useDispatch } from "react-redux";
-import { increase, detract, change } from "../features/cart/cartSlice";
+import { increase, detract, change, van } from "../features/cart/cartSlice";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useHistory } from "react-router-dom";
 
 const Van = () => {
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const [color, setColor] = useState("blue");
 	const [type, setType] = useState("standard");
@@ -53,6 +53,12 @@ const Van = () => {
 		subscribe: true,
 	});
 
+	const handelOrder = () => {
+		const order = { color, price, model: "van" };
+		dispatch(van(order));
+		history.push("/confirm");
+	};
+
 	useEffect(async () => {
 		await refetch();
 	}, [color, type]);
@@ -65,7 +71,9 @@ const Van = () => {
 						<ProductImg data={data} isLoading={isLoading} />
 
 						<h4> Pris: {price} kr </h4>
-						<Button>Lägg beställning</Button>
+						<Button onClick={() => handelOrder()}>
+							Lägg beställning
+						</Button>
 					</Card>
 				</Col>
 				<Col md={5} lg={3}>

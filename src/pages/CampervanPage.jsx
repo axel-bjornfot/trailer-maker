@@ -1,8 +1,6 @@
-import { end } from "@popperjs/core";
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
-import Offcanvas from "react-bootstrap/Offcanvas";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Button from "react-bootstrap/Button";
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -12,12 +10,14 @@ import ProductImg from "../components/ProductImg";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { useDispatch } from "react-redux";
-import { increase, detract, change } from "../features/cart/cartSlice";
+import { increase, detract, change, van } from "../features/cart/cartSlice";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useHistory } from "react-router-dom";
 
 const CamperavanPage = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const [color, setColor] = useState("olive");
 	const [type, setType] = useState("standard");
 	const price = useSelector((state) => state.cart.price);
@@ -59,20 +59,27 @@ const CamperavanPage = () => {
 		}
 	);
 
+	const handelOrder = () => {
+		const order = { color, type, price, model: "campervan" };
+		dispatch(van(order));
+		history.push("/confirm");
+	};
+
 	useEffect(async () => {
 		await refetch();
 	}, [color, type]);
 
 	return (
 		<Container fluid>
-			{/* {isLoading ?? <ScaleLoader color="#ededed" />}{" "} isLoading={isLoading}*/}
 			<Row>
 				<Col md={7} lg={{ span: 7, offset: 1 }}>
 					<Card className="text-center mt-4">
 						<ProductImg data={data} isLoading={isLoading} />
 
 						<h4> Pris: {price} kr </h4>
-						<Button>Lägg beställning</Button>
+						<Button onClick={() => handelOrder()}>
+							Lägg beställning
+						</Button>
 					</Card>
 				</Col>
 				<Col md={5} lg={3}>
@@ -93,9 +100,7 @@ const CamperavanPage = () => {
 
 							<Card className="text-center mt-4">
 								<Card.Body>
-									<Card.Title>
-										Välj vilken färg du vill ha på bilen
-									</Card.Title>
+									<Card.Title>Välj färg</Card.Title>
 									<ButtonGroup className="mb-2">
 										{colors.map((colors, idx) => (
 											<ToggleButton
@@ -117,9 +122,7 @@ const CamperavanPage = () => {
 
 							<Card className="text-center mt-4">
 								<Card.Body>
-									<Card.Title>
-										Välj vilken model du vill ha
-									</Card.Title>
+									<Card.Title>Välj vilken model</Card.Title>
 									<ButtonGroup className="mb-2">
 										{variants.map((variant, idx) => (
 											<ToggleButton

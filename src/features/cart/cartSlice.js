@@ -21,9 +21,14 @@ const cartSlice = createSlice({
 			state.price = action.payload;
 			return state;
 		},
+
+		van: (state, action) => {
+			state.van = action.payload;
+			return state;
+		},
 	},
 });
 
-export const { increase, detract, change } = cartSlice.actions;
+export const { increase, detract, change, van } = cartSlice.actions;
 
 export default cartSlice.reducer;
