@@ -60,7 +60,7 @@ const CamperavanPage = () => {
 	);
 
 	const handelOrder = () => {
-		const order = { color, type, price, model: "campervan" };
+		const order = { color, type, price, model: "Campervan" };
 		dispatch(van(order));
 		history.push("/confirm");
 	};

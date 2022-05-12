@@ -40,13 +40,11 @@ const Van = () => {
 
 	const colorChange = (e) => {
 		setColor(e.target.name);
-		console.log("type ", e.target.value);
 	};
 
 	const variantChange = (e) => {
 		setType(e.target.name);
 		dispatch(change(e.target.value));
-		console.log("type ", e.target);
 	};
 
 	const { isLoading, data, refetch } = useFirestoreQueryData(["van"], qRef, {
@@ -54,7 +52,7 @@ const Van = () => {
 	});
 
 	const handelOrder = () => {
-		const order = { color, price, model: "van" };
+		const order = { color, type, price, model: "Van" };
 		dispatch(van(order));
 		history.push("/confirm");
 	};
@@ -79,7 +77,7 @@ const Van = () => {
 				<Col md={5} lg={3}>
 					<Card className="text-center mt-4">
 						<Card.Header>
-							<h2>Campervan</h2>
+							<h2>Van</h2>
 						</Card.Header>
 						<Card.Body>
 							<p>
