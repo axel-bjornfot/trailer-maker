@@ -1,6 +1,7 @@
 @import "bootstrap/scss/bootstrap";
 @import "./Var.scss";
 @import "./Custom.scss";
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 #Homepage {
 	background-image: $bg-img1;
@@ -24,6 +25,10 @@ h4,
 h5,
 h6 {
 	margin-bottom: 0.5em;
+	font-family: "Roboto", sans-serif;
+}
+p {
+	font-family: "Roboto", sans-serif;
 }
 
 .btn-flat {
